@@ -5,7 +5,9 @@ import com.example.lilisolution.cadastro_pet.entity.CadastroPet;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CadastroPetService {
     private CadastroPetRepository cadastroPetRepository;
 
