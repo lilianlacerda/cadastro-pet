@@ -45,9 +45,18 @@ public class CadastroPetService {
         }
     }
 
-    public List<CadastroPet> excluirPet(Long id){
-        cadastroPetRepository.deleteById(id);
+    public List<CadastroPet> excluirPet(Long id) {
+        try{
+            Optional<CadastroPet> petExcluido = cadastroPetRepository.findById(id);
+        if(petExcluido.isPresent()){
+            cadastroPetRepository.deleteById(id);
+        }else{
+            throw new RuntimeException("Pet com ID " + id + " não encontrado.");
+        }
         return listarPets();
+        }catch(Exception e){
+            throw new RuntimeException("Erro ao excluir o pet: " + e.getMessage());
+        }   
     }
     
 }
