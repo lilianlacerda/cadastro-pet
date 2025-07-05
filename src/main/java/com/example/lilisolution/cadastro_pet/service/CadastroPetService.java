@@ -3,6 +3,7 @@ package com.example.lilisolution.cadastro_pet.service;
 import com.example.lilisolution.cadastro_pet.repository.CadastroPetRepository;
 import com.example.lilisolution.cadastro_pet.entity.CadastroPet;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,20 @@ public class CadastroPetService {
         return listarPets();
     }
 
-    public List<CadastroPet> atualizarPet(CadastroPet cadastroPet){
-        cadastroPetRepository.save(cadastroPet);
+    public List<CadastroPet> atualizarPet(CadastroPet cadastroPet, long id) {
+        try{
+            // Verifica se o pet com o ID fornecido existe
+        //Optional significa que o objeto pode ou não estar presente
+        Optional <CadastroPet> petEditado = cadastroPetRepository.findById(id);
+        if(petEditado.isPresent()){
+            cadastroPet.setId(id);
+            cadastroPetRepository.save(cadastroPet);
+        }
         return listarPets();
+        }catch(Exception e){
+
+            throw new RuntimeException("Erro ao atualizar o pet: " + e.getMessage());
+        }
     }
 
     public List<CadastroPet> excluirPet(Long id){

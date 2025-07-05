@@ -33,9 +33,9 @@ public class CadastroPetController {
         return cadastroPetService.cadastrarPet(cadastroPet);
     }
 
-    @PutMapping("/atualizar")
-    public List<CadastroPet> atualizarPet(@RequestBody CadastroPet cadastroPet){
-        return cadastroPetService.atualizarPet(cadastroPet);
+    @PutMapping("/atualizar/{id}")
+    public List<CadastroPet> atualizarPet(@RequestBody CadastroPet cadastroPet, @PathVariable Long id){
+        return cadastroPetService.atualizarPet(cadastroPet, id);
     }
 
     @DeleteMapping("/excluir/{id}")
