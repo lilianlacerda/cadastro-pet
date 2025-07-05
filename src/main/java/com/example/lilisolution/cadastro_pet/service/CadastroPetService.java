@@ -35,6 +35,8 @@ public class CadastroPetService {
         if(petEditado.isPresent()){
             cadastroPet.setId(id);
             cadastroPetRepository.save(cadastroPet);
+        }else{
+            throw new RuntimeException("Pet com ID " + id + " não encontrado.");
         }
         return listarPets();
         }catch(Exception e){
